@@ -1,3 +1,3 @@
-# SatelliteProject
+# FreightProject
 
-Vizualizing satellites.
+Vizualizing transports across Europe.
