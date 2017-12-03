@@ -30,7 +30,8 @@
     var wanted = ["Belgium","Bulgaria","Czech Republic","Denmark","Germany","Estonia","Ireland","Greece","Spain","France","Croatia","Italy","Cyprus","Latvia","Lithuania","Luxembourg","Hungary","Netherlands","Austria","Poland","Romania","Slovenia","Slovakia","Finland","Sweden","United Kingdom","Liechtenstein","Norway","Switzerland","Serbia","Portugal","The former Yugoslav Republic of Macedonia","Albania","Bosnia and Herzegovina","Montenegro"];
     console.log(wanted.length)
     
-		d3.json("europe.geojson", function(json) {
+    
+    d3.json("europe.geojson", function(json) {
       console.log(json.features.length)
       var true_map = [];
       var country_centers = []
@@ -43,7 +44,7 @@
              true_map.push(json.features[i]);
            //}else{
            //  console.log(country_name)
-           //}
+           }
            var coord =json.features[i].geometry.coordinates[0]
            
            var x = d3.mean(coord, function(c){return c[0];});
