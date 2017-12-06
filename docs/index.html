@@ -1,85 +1,22 @@
 <!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/topojson.v1.min.js"></script>
-  <title>DataViz of Freight Transport around Europe</title>
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-  </style>
+	<meta charset="utf-8">
+	<script src="https://www.w3schools.com/lib/w3.js"></script> 
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+	<script type="text/javascript" src="map.js"></script>
+	<title>DataViz of Freight Transport around Europe</title>
 </head>
-
 <body>
-  <script>
-		var width = 700,
-  		  height = 580;
-
-		var svg = d3.select( "body" )
-  		.append( "svg" )
-		  .attr( "width", width )
-		  .attr( "height", height );
-
-   
-    
-    var projection = d3.geoConicConformal().center([15, 50]).scale(600);
-
-
-    var path = d3.geoPath()
-                 .projection(projection);
-    
-    var wanted = ["Belgium","Bulgaria","Czech Republic","Denmark","Germany","Estonia","Ireland","Greece","Spain","France","Croatia","Italy","Cyprus","Latvia","Lithuania","Luxembourg","Hungary","Netherlands","Austria","Poland","Romania","Slovenia","Slovakia","Finland","Sweden","United Kingdom","Liechtenstein","Norway","Switzerland","Serbia","Portugal","The former Yugoslav Republic of Macedonia","Albania","Bosnia and Herzegovina","Montenegro"];
-    console.log(wanted.length)
-    
-    
-    d3.json("europe.geojson", function(json) {
-      console.log(json.features.length)
-      var true_map = [];
-      var country_centers = []
-      for(i in json.features){
-           var country_name = json.features[i].properties.NAME
-           //console.log(country_name);
-        	
-           if(wanted.includes(country_name)){
-             //console.log(country_name);
-             true_map.push(json.features[i]);
-           //}else{
-           //  console.log(country_name)
-           }
-           var coord =json.features[i].geometry.coordinates[0]
-           
-           var x = d3.mean(coord, function(c){return c[0];});
-        	 var y = d3.mean(coord, function(c){return c[1];});
-           
-           country_centers.push({name : country_name,
-                             coord : [x,y]});
-           
-       }
-      console.log(true_map.length);
-      json.features = true_map;
-     // console.log(country_centers)
-      //console.log(json.features)
-	    svg.selectAll("path")
-           .data(json.features)
-           .enter()
-           .append("path")
-           .attr("d", path)
-      		 .style("fill","lightgrey");
-	
-      svg.selectAll("circle")
-      		.attr("class","bubble")
-      		.data(json.features)
-      		.enter()
-      		.append("circle")
-      		//.attr("cx", function(c){console.log(c.coord);return c.coord[0]*10 + 480;})
-      		//.attr("cy", function(c){return c.coord[1]*5;})
-      		.attr("r",10)
-    			.attr("transform", function(d) {return "translate(" + path.centroid(d) + ")"; })
-    			.attr("r", 1.5)
-      		//.attr("d",path)
-      		//.attr("transform", function(c){"translate(" + c.coord +")"})
-      		.style("fill","black");
-      
-		});
-  </script>
+	<header>
+		<h1>Freight Transport around Europe</h1>
+		<h2> By <a href="https://github.com/BarbierJeremy">Jeremy Barbier</a>, <a href="https://github.com/axbazin">Adelme Bazin</a> and <a href="https://github.com/Npfn">Nina Paffoni</a></h2>
+	</header>
+<main>
+	<figure>
+		<script>mapDrawing();</script>
+	</figure>
+</main>
 </body>
-
+</html>
