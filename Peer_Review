@@ -1,0 +1,35 @@
+12/5/2017 
+
+21:03:56
+
+10 (Aubret, Gaud, Letcher)
+	
+9 (Barbier, Bazin, Paffoni)	
+
+L’objectif est de montrer les importations/exportations par voie routière au sein de l’Union Européenne en utilisant une représentation par carte géographique. Ils cherchent à comparer les pays entre eux, dans le temps, par ressources, en distinguant imports/exports.
+
+La problématique est pertinente. L’article peut, en plus de s’adresser au grand public, être interprété par les politiciens et des économistes.
+
+-Cette référence est assez intéressante: https://bl.ocks.org/mbostock/1308257 elle montre les pays créditeurs et débiteurs. Adapté à votre problématique cela pourrait montrer de façon assez succinte les principaux importateurs/exportateurs de chaque pays et ainsi offrir une comparaison entre pays.
+-https://pdfs.semanticscholar.org/7a9a/af7b4b05cc24c48510fabbb22ebbb6d89247.pdf, l’article présente un moyen de visualiser, avec une bonne visibilité et donc peu de bruit, les zones/routes fortements empruntées. Les routes sont orientées. L’épaisseur du lien est gérée selon son importance. Finalement, cela pourrait être notamment utile pour visualiser les flux entre pays du nord et pays du sud, avec les zones de transitions. L’implémentation est cependant probablement compliquée.
+-http://ec.europa.eu/eurostat/statistics-explained/index.php/File:Extra_EU-28_trade_in_goods,_2016_(%25_share_of_EU-28_exports_imports)_YB17-fr.png  , on voit deux simples camemberts qui montrent très efficacement l’importance de pays ou groupes de pays dans les échanges mondiaux. Un peu adapté, il vous permettrait de montrer les interactions entre pays ou les catégories de biens échangés. On perd cependant l’aspect géographique.
+
+
+
+Les exemples choisis illustrent très bien l’utilité de représenter visuellement les données de traffic commercial entre pays. Ils sont très intéressants et nous avons envie de les manipuler pour comprendre les données. Vous montrez dans le même temps quelques limites et comment votre visualisation sera différente.
+La problématique est illustrée de façon claire.
+L’utilité d’une telle visualisation s’inscrit parfaitement dans le contexte politique et économique actuel, entre Brexit et réforme de l’UE. Elle permet d’éclaircir la géopolitique intra-européenne, les poids de chaque pays et les interdépendances.
+
+
+
+-Mettre des légendes sur les figures d’exemples.
+-Discuter du problème de la représentation des pays: comment montrer les données pour des petits pays sur une carte? Plusieurs visualisations des exemples n’utilisent pas les frontières géographiques mais un système noeud/arrêtes qui éviterait les frontières (code couleur par pays?).
+-Les flèches ne permettent pas vraiment de distinguer imports et exports puisque une flèche export pour un pays est une flèche import pour l’autre?
+
+
+-Comment comparer efficacement deux pays? Si on peut voir toutes les ressources d’un pays, puis d’un autre, en cliquant successivement sur la carte, la comparaison n’est pas évidente.
+-Visualisation focalisée ressource: par exemple, qui est le plus gros importateur ou exportateur de vin? N’afficher que les flèches/arêtes pour le vin.
+-D’autres visualisations peut-être plus simples mais complémentaires? Exemple, chord diagram (https://bl.ocks.org/mbostock/4062006 ) qui montrerait assez bien les échanges entre pays.
+-Inclure une barre de recherche où on tape un pays et seules les données de ce pays s’affichent? Et dans ce cas un menu déroulant ‘major partners’ qui montre les principaux pays partenaires?
+-Proposer une visualisation allant au-delà des pays. On pourrait par exemple observer une exportation de produits agricoles du sud au nord. ( Ou non, c’est un exemple )
+			
