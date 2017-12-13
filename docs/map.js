@@ -4,7 +4,7 @@ function mapDrawing(){
 	
 
 var width = 900,
-	height = 400,
+	height = 800,
 	active = d3.select(null);
 
 var svg = d3.select("figure")
@@ -75,19 +75,27 @@ d3.json("europe.geojson", function(json) {
 		.attr("d", path)
 		.style("fill","lightgrey");
 		
+	console.log(json.features)
+
 	
-	g.selectAll("circle")
-		.attr("class","bubble")
+	g.selectAll("rect")
 		.data(json.features)
 		.enter()
-		.append("circle")
-		.attr("r",10)
-			.attr("transform", function(d) {return "translate(" + path.centroid(d) + ")"; })
-			.attr("r", 10)
+		.append("rect")
+		.attr("width", 30)
+		.attr("height", 30)
+		.attr("transform", function(d) {return "translate(" + path.centroid(d) + ")"; })
+		//.attr("x", 10)
+		//.attr("y", 10)
 		.style("fill","black")
 		.style("cursor","pointer");
+
+		
+	var Test = function(d) {return "translate(" + path.centroid(d) + ")"; };
+	console.log(Test(json.features))
+
 	
-	g.selectAll("circle").on("click", clicked);
+	g.selectAll("rect").on("click", clicked);
   
 	});
 	
