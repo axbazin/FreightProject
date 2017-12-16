@@ -3,11 +3,13 @@
 function mapDrawing(){
 	
 
-var width = 900,
-	height = 800,
+   
+var val = 50,
+	width = 10 * val,
+	height = 12 * val,
 	active = d3.select(null);
 
-var svg = d3.select("figure")
+var svg = d3.select("body")
 	.append( "svg" )
 	.attr( "width", width )
 	.attr( "height", height )	
@@ -20,81 +22,49 @@ var svg = d3.select("figure")
 	//class to make it responsive
 	.classed("svg-content-responsive", true)*/
 	
-console.log(d3.select("figure"))
+//console.log(d3.select("figure"))
 
 var g = svg.append("g");
-
-var projection = d3.geoConicConformal().center([15, 50]).scale(600);
-
-
-var path = d3.geoPath()
-			 .projection(projection);
-
-var wanted = ["Belgium","Bulgaria","Czech Republic","Denmark","Germany","Estonia","Ireland","Greece","Spain","France","Croatia","Italy","Cyprus","Latvia","Lithuania","Luxembourg","Hungary","Netherlands","Austria","Poland","Romania","Slovenia","Slovakia","Finland","Sweden","United Kingdom","Liechtenstein","Norway","Switzerland","Serbia","Portugal","The former Yugoslav Republic of Macedonia","Albania","Bosnia and Herzegovina","Montenegro"];
-console.log(wanted.length)
 
 var zoom = d3.zoom() 
     .scaleExtent([1, 8])
     .on("zoom", zoomed);
-
-d3.json("europe.geojson", function(json) {
-  console.log(json.features.length)
-  var true_map = [];
-  var country_centers = []
-  for(i in json.features){
-	   var country_name = json.features[i].properties.NAME
-	   //console.log(country_name);
-		
-	   if(wanted.includes(country_name)){
-		 //console.log(country_name);
-		 true_map.push(json.features[i]);
-	   //}else{
-	   //  console.log(country_name)
-	   }
-	   var coord =json.features[i].geometry.coordinates[0]
-	   
-	   var x = d3.mean(coord, function(c){return c[0];});
-		 var y = d3.mean(coord, function(c){return c[1];});
-	   
-	   country_centers.push({name : country_name,
-						 coord : [x,y]});
-	   
-   }
-  console.log(true_map.length);
-  json.features = true_map;
- // console.log(country_centers)
-  //console.log(json.features)
-	
+  
+  var jsondata;
+  var coord = Array()
+	d3.json("europe_map.json", function(error, data){
+		jsondata = data.map;
+    console.log(error)
+    console.log(jsondata);
+		for(i in jsondata){
+			curr_Cord = Array();
+			var x = jsondata[i]["x"];
+			var y = jsondata[i]["y"];
+			curr_Cord.push(x,y);
+      coord.push(curr_Cord)
+		};
+    
+	console.log(coord);
 	
 	svg.call(zoom);
 
-	g.selectAll("path")
+	/*g.selectAll("path")
 		.data(json.features)
 		.enter()
 		.append("path")
 		.attr("d", path)
-		.style("fill","lightgrey");
-		
-	console.log(json.features)
-
+		.style("fill","lightgrey");*/
 	
-	g.selectAll("rect")
-		.data(json.features)
+	svg.selectAll("rect").data(coord)
 		.enter()
 		.append("rect")
-		.attr("width", 30)
-		.attr("height", 30)
-		.attr("transform", function(d) {return "translate(" + path.centroid(d) + ")"; })
-		//.attr("x", 10)
-		//.attr("y", 10)
-		.style("fill","black")
+		.attr("x", function(d){return d[0]*val;})
+		.attr("y",function(d){return d[1]*val;})
+		.attr("height", 0.95 * val)
+		.attr("width", 0.95 * val)
+		.style("fill","white")
 		.style("cursor","pointer");
 
-		
-	var Test = function(d) {return "translate(" + path.centroid(d) + ")"; };
-	console.log(Test(json.features))
-
-	
 	g.selectAll("rect").on("click", clicked);
   
 	});
@@ -140,7 +110,11 @@ function zoomed() {
 }
 
 function stopped() {
-  if (d3.event.defaultPrevented) d3.event.stopPropagation();
-}
+  if(d3.event.defaultPrevented){
+    d3.event.stopPropagation();
+  }
+};
+	
+
 	
 };
