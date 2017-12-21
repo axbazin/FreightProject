@@ -4,19 +4,30 @@
 	<meta charset="utf-8">
 	<script src="https://www.w3schools.com/lib/w3.js"></script> 
 	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+	<script src="geo2rect.js"></script>
 	<script type="text/javascript" src="map.js"></script>
 	<title>DataViz of Freight Transport around Europe</title>
 	<link rel="stylesheet" href="./assets/css/style.css">
+	<style>
+		figure {
+			background-color: lightblue;
+		}
+	</style>
+		
+		
 </head>
+
 <body>
 	<header>
 		<h1>Freight Transport around Europe</h1>
 		<h2> By <a href="https://github.com/BarbierJeremy">Jeremy Barbier</a>, <a href="https://github.com/axbazin">Adelme Bazin</a> and <a href="https://github.com/Npfn">Nina Paffoni</a></h2>
 	</header>
-<main>
-	<figure>
-		<script>mapDrawing();</script>
-	</figure>
-</main>
+	<section>
+		<button id="toggle">Toggle map</button><br />
+		<figure>
+			<script>mapDrawing();</script>
+		</figure>
+	</section>
 </body>
 </html>

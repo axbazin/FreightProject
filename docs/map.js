@@ -3,118 +3,85 @@
 function mapDrawing(){
 	
 
-   
-var val = 50,
-	width = 10 * val,
-	height = 12 * val,
-	active = d3.select(null);
+  var config = {
+    width : 1000,
+    height : 700,
+    padding : 70,
+    projection : d3.geoMercator(),
+    duration : 2000,
+    key:function(d){return d.properties.ISO_A3; },
+    grid : {
+      ALB: { x: 5, y: 8 },
+          ARM: { x: 9, y: 6 },
+          AUS: { x: 9, y: 9 },
+          AUT: { x: 4, y: 5 },
+          AZE: { x: 9, y: 5 },
+          BEL: { x: 2, y: 3 },
+          BGR: { x: 7, y: 6 },
+          BIH: { x: 5, y: 6 },
+          BLR: { x: 6, y: 3 },
+          CHE: { x: 3, y: 4 },
+          CYP: { x: 8, y: 7 },
+          CZE: { x: 4, y: 4 },
+          DEU: { x: 4, y: 3 },
+          DNK: { x: 4, y: 2 },
+          ESP: { x: 1, y: 5 },
+          EST: { x: 6, y: 1 },
+          FIN: { x: 6, y: 0 },
+          FRA: { x: 1, y: 4 },
+          GBR: { x: 1, y: 2 },
+          GEO: { x: 8, y: 5 },
+          GRC: { x: 6, y: 8 },
+          HUN: { x: 5, y: 5 },
+          HRV: { x: 4, y: 6 },
+          IRL: { x: 0, y: 2 },
+          ISL: { x: 0, y: 0 },
+          ISR: { x: 8, y: 8 },
+          ITA: { x: 3, y: 5 },
+          KOS: { x: 6, y: 7 },
+          LTU: { x: 6, y: 2 },
+          LUX: { x: 2, y: 4 },
+          LVA: { x: 7, y: 2 },
+          MDA: { x: 7, y: 5 },
+          MKD: { x: 7, y: 7 },
+          MLT: { x: 1, y: 7 },
+          MNE: { x: 5, y: 7 },
+          NLD: { x: 3, y: 3 },
+          NOR: { x: 4, y: 0 },
+          POL: { x: 5, y: 3 },
+          PRT: { x: 0, y: 5 },
+          ROU: { x: 6, y: 5 },
+          RUS: { x: 7, y: 3 },
+          SMR: { x: 2, y: 6 },
+          SRB: { x: 6, y: 6 },
+          SVK: { x: 5, y: 4 },
+          SVN: { x: 3, y: 6 },
+          SWE: { x: 5, y: 0 },
+          UKR: { x: 6, y: 4 },
+          TUR: { x: 8, y: 6 }
+    }
+  };
 
-var svg = d3.select("body")
-	.append( "svg" )
-	.attr( "width", width )
-	.attr( "height", height )	
-	.on("click", stopped, true);
-	//this code is to make the thing responsive, eventually.
-	/*.classed("svg-container", true)
-	//responsive SVG needs these 2 attributes and no width and height attr
-	.attr("preserveAspectRatio", "xMinYMin meet")
-	.attr("viewBox", "0 0 900 400")
-	//class to make it responsive
-	.classed("svg-content-responsive", true)*/
-	
-//console.log(d3.select("figure"))
+  var svg = d3.select('body')
+    .append('svg')
+    .attr('width',config.width)
+    .attr('height',config.height);
 
-var g = svg.append("g");
+  var g2r = new geo2rect.draw();
 
-var zoom = d3.zoom() 
-    .scaleExtent([1, 8])
-    .on("zoom", zoomed);
-  
-  var jsondata;
-  var coord = Array()
-	d3.json("europe_map.json", function(error, data){
-		jsondata = data.map;
-    console.log(error)
-    console.log(jsondata);
-		for(i in jsondata){
-			curr_Cord = Array();
-			var x = jsondata[i]["x"];
-			var y = jsondata[i]["y"];
-			curr_Cord.push(x,y);
-      coord.push(curr_Cord)
-		};
-    
-	console.log(coord);
-	
-	svg.call(zoom);
+  d3.json('eurovis-countries-simplified.geojson', function(err, data){
+    var geojson = geo2rect.compute(data);
+    g2r.config = config;
+    g2r.data = geojson;
+    g2r.svg = svg.append('g');
+    g2r.draw();
+  });
 
-	/*g.selectAll("path")
-		.data(json.features)
-		.enter()
-		.append("path")
-		.attr("d", path)
-		.style("fill","lightgrey");*/
-	
-	svg.selectAll("rect").data(coord)
-		.enter()
-		.append("rect")
-		.attr("x", function(d){return d[0]*val;})
-		.attr("y",function(d){return d[1]*val;})
-		.attr("height", 0.95 * val)
-		.attr("width", 0.95 * val)
-		.style("fill","white")
-		.style("cursor","pointer");
+  d3.select('#toggle').on('click', function(){
+    g2r.toggle();
+    g2r.draw();
 
-	g.selectAll("rect").on("click", clicked);
-  
-	});
-	
-//zoom and pan functions from: https://bl.ocks.org/iamkevinv/0a24e9126cd2fa6b283c6f2d774b69a2
-function clicked(d) {
-	//define what happens on click here.
-
-	if (active.node() === this) return reset();
-		active.classed("active", false);
-		active = d3.select(this).classed("active", true);
-
-  var bounds = path.bounds(d),
-      dx = bounds[1][0] - bounds[0][0],
-      dy = bounds[1][1] - bounds[0][1],
-      x = (bounds[0][0] + bounds[1][0]) / 2,
-      y = (bounds[0][1] + bounds[1][1]) / 2,
-      scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
-      translate = [width / 2 - scale * x, height / 2 - scale * y];
-      
-  svg.transition()
-		.duration(750)
-		.call( zoom.transform, d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale) ); // updated for d3 v4
-		
-		//call functions for displaying data.
-}
-
-function reset() {
-  active.classed("active", false);
-  active = d3.select(null);
-
-  svg.transition()
-      .duration(750)
-      .call( zoom.transform, d3.zoomIdentity ); 
-      
-   //hide elements that were displayed. (or erase ???)
-}
-
-function zoomed() {
-  g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-  // g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
-  g.attr("transform", d3.event.transform); // updated for d3 v4
-}
-
-function stopped() {
-  if(d3.event.defaultPrevented){
-    d3.event.stopPropagation();
-  }
-};
-	
+  });
 
 	
 };
