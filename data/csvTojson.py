@@ -187,9 +187,10 @@ def main() :
 	##print(ISO_Translate)
 	exports = Make_dictionary_Export("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
-	imports = Make_dictionary_Import("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
+	##imports = Make_dictionary_Import("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
-	
+	with open('exports.json', 'w') as outfile:
+		json.dump(exports, outfile, ensure_ascii=False)
 	
 if __name__ == "__main__" :
 	main()
