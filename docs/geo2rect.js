@@ -4,6 +4,43 @@
 	(factory((global.geo2rect = global.geo2rect || {})));
 }(this, function (exports) { 'use strict';
 
+	//ajout Adelme.
+	var trans_data = { 
+			AD: { ISO3: "AND", name: "Andorra"},// not on geo map 
+			AL: { ISO3: "ALB", name: "Albania"},
+			AT: { ISO3: "AUT", name: "Austria"},
+			BE: { ISO3: "BEL", name: "Belgium"},
+			BG: { ISO3: "BGR", name: "Bulgaria"},
+			CH: { ISO3: "CHE", name: "Switzerland"},
+			CZ: { ISO3: "CZE", name: "Czech Republic"},
+			DE: { ISO3: "DEU", name: "Germany"},
+			DK: { ISO3: "DNK", name: "Denmark"},
+			EE: { ISO3: "EST", name: "Estonia"},
+			EL: { ISO3: "GRC", name: "Greece"},
+			ES: { ISO3: "ESP", name: "Spain"},
+			FI: { ISO3: "FIN", name: "Finland"},
+			FR: { ISO3: "FRA", name: "France"},
+			HR: { ISO3: "HRV", name: "Croatia"},
+			HU: { ISO3: "HUN", name: "Hungary"},
+			IE: { ISO3: "IRL", name: "Ireland"},
+			IT: { ISO3: "ITA", name: "Italy"},
+			LI: { ISO3: "LIE", name: "Liechtenstein"},// not on geo map 
+			LT: { ISO3: "LTU", name: "Lithuania"},
+			LU: { ISO3: "LUX", name: "Luxembourg"},
+			LV: { ISO3: "LVA", name: "Latvia"},
+			NL: { ISO3: "NLD", name: "Netherlands"},
+			NO: { ISO3: "NOR", name: "Norway"},
+			PL: { ISO3: "POL", name: "Poland"},
+			PT: { ISO3: "PRT", name: "Portugal"},
+			RO: { ISO3: "ROU", name: "Romania"},
+			SE: { ISO3: "SWE", name: "Sweden"},
+			SI: { ISO3: "SVN", name: "Slovenia"},
+			SK: { ISO3: "SVK", name: "Slovakia"},
+			UK: { ISO3: "GBR", name: "United Kingdom"}
+		};
+
+
+
 	function compute (data) {
 
 		//TODO: check if data is in a valid format
@@ -448,12 +485,12 @@
 				if (this._init) {
 					(function () {
 						var _this = _this3;
+						var myPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						var tPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						tPath.exit();
 						tPath.enter().append("path").attr('class', function (d) {
 							return 'id-' + _this.config.key(d);
 						});
-			//console.log(_this3.data);
 			
 						_this3._svg.selectAll("path").transition().duration(_this3._config.duration).attr('transform', function (d) {
 							var tx = 0,
@@ -471,7 +508,66 @@
 							} else {
 								return _this._rPath(d.geometry.qcoordinates) + "Z";
 							}
-						}).attr('id', function(d){return d.properties.ISO_A3;});//Ajout Adelme.
+						}).attr('id', function(d){return d.properties.ISO_A3;})//Ajout Adelme.
+						.attr("fill",function(d){ 
+							if (_this._mode === 'rect' && CheckTrans(trans_data, d.properties.ISO_A3)){
+								return "Grey";
+							}
+							else{
+								return "Black";
+							}
+						}).on("end",function(d){
+								var rectClass = document.getElementsByClassName(d.properties.ISO_A3 + "_smallrect");
+								var square = document.getElementById(d.properties.ISO_A3);
+								var posview = document.getElementById("view").getBoundingClientRect();
+								var pos = square.getBoundingClientRect();
+								if(_this3._mode === "rect" && CheckTrans(trans_data, d.properties.ISO_A3)){
+									var cou = 0;
+									var tGrid = _this3.config.grid
+									for(var key in tGrid){
+										//console.log(key);
+										
+										rectClass[cou].style.visibility = "visible";
+										//rectClass[cou].setAttribute("x", pos.x + ((pos.width / 8) * tGrid[key].x));
+										rectClass[cou].setAttribute("x", (pos.x - posview.x) + ((pos.width / 8) * tGrid[key].x));
+										rectClass[cou].setAttribute("y", (pos.y - posview.y) + ((pos.height / 8) * tGrid[key].y));
+										rectClass[cou].setAttribute("width", pos.width / 8);
+										rectClass[cou].setAttribute("height", pos.height / 8);
+										rectClass[cou].setAttribute("id", d.properties.ISO_A3 + "-" + key);
+										if( d.properties.ISO_A3 == key){
+											rectClass[cou].style.fill = "Blue";
+										}
+										if(!CheckTrans(trans_data, key)){
+											rectClass[cou].style.fill = "Black";
+										}
+										cou++;
+									}
+									
+								}
+							})
+						.on("start", function(d){
+							let rectClass = document.getElementsByClassName(d.properties.ISO_A3 + "_smallrect");
+								if(_this3._mode === 'geo'){
+									for(var curr = 0; curr < rectClass.length;curr++){
+										rectClass[curr].style.visibility = "hidden";
+									}
+								}
+							});
+					
+							var mygrid = _this3.config.grid;
+							for(var key in mygrid){
+								
+								myPath.enter()
+									.append("rect")
+									.attr("class",key + "_smallrect")
+									.attr("x", 0)
+									.attr("y", 0)
+									.attr("width",100)
+									.attr("height",100)
+									.attr("fill","Red")
+									.style("opacity","0.5")
+									.style("visibility","visible");
+							}//fin ajout Adelme.
 					})();
 				} else {
 					console.error('You must run update() first.');
@@ -568,5 +664,15 @@
 	exports.draw = draw;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
-
+	
+	//ajout Adelme:
+	function CheckTrans(trans_data, iso3){
+		for(let c in trans_data){
+			if(trans_data[c].ISO3 === iso3){
+				return true;
+			}
+		}
+		return false // if we reach this point, iso3 isn't in trans_data.
+	};
+	
 }));

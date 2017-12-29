@@ -3,17 +3,17 @@
 function mapDrawing(){
 	
 	var c_grid = {
-			ALB: { x: 5, y: 8 },
+			ALB: { x: 5, y: 7 },//here
 			//ARM: { x: 9, y: 6 },
 			AUT: { x: 4, y: 5 },
 			//AUS: { x: 9, y: 9 },
 			//AZE: { x: 9, y: 5 },
 			BEL: { x: 2, y: 3 },
-			BGR: { x: 7, y: 6 },
+			BGR: { x: 7, y: 5 },
 			BIH: { x: 5, y: 6 },
 			BLR: { x: 6, y: 3 },
 			CHE: { x: 3, y: 4 },
-			CYP: { x: 8, y: 7 },
+			//CYP: { x: 8, y: 7 },
 			CZE: { x: 4, y: 4 },
 			DEU: { x: 4, y: 3 },
 			DNK: { x: 4, y: 2 },
@@ -23,7 +23,7 @@ function mapDrawing(){
 			FRA: { x: 1, y: 4 },
 			GBR: { x: 1, y: 2 },
 			//GEO: { x: 8, y: 5 },
-			GRC: { x: 6, y: 8 },
+			GRC: { x: 7, y: 7 },// here
 			HUN: { x: 5, y: 5 },
 			HRV: { x: 4, y: 6 },
 			IRL: { x: 0, y: 2 },
@@ -34,10 +34,10 @@ function mapDrawing(){
 			LTU: { x: 6, y: 2 },
 			LUX: { x: 2, y: 4 },
 			LVA: { x: 7, y: 2 },
-			MDA: { x: 7, y: 5 },
-			MKD: { x: 7, y: 7 },
+			MDA: { x: 6, y: 4 },
+			MKD: { x: 7, y: 6 },
 			//MLT: { x: 1, y: 7 },
-			MNE: { x: 5, y: 7 },
+			MNE: { x: 4, y: 7 },
 			NLD: { x: 3, y: 3 },
 			NOR: { x: 4, y: 0 },
 			POL: { x: 5, y: 3 },
@@ -49,44 +49,10 @@ function mapDrawing(){
 			SVK: { x: 5, y: 4 },
 			SVN: { x: 3, y: 6 },
 			SWE: { x: 5, y: 0 },
-			UKR: { x: 6, y: 4 },
-			TUR: { x: 8, y: 6 }
+			UKR: { x: 7, y: 4 },
+			//TUR: { x: 8, y: 6 }
 		};
 
-
-	var trans_data = { 
-			AD: { ISO3: "AND", name: "Andorra"},// not on geo map 
-			AL: { ISO3: "ALB", name: "Albania"},
-			AT: { ISO3: "AUT", name: "Austria"},
-			BE: { ISO3: "BEL", name: "Belgium"},
-			BG: { ISO3: "BGR", name: "Bulgaria"},
-			CH: { ISO3: "CHE", name: "Switzerland"},
-			CZ: { ISO3: "CZE", name: "Czech Republic"},
-			DE: { ISO3: "DEU", name: "Germany"},
-			DK: { ISO3: "DNK", name: "Denmark"},
-			EE: { ISO3: "EST", name: "Estonia"},
-			EL: { ISO3: "GRC", name: "Greece"},
-			ES: { ISO3: "ESP", name: "Spain"},
-			FI: { ISO3: "FIN", name: "Finland"},
-			FR: { ISO3: "FRA", name: "France"},
-			HR: { ISO3: "HRV", name: "Croatia"},
-			HU: { ISO3: "HUN", name: "Hungary"},
-			IE: { ISO3: "IRL", name: "Ireland"},
-			IT: { ISO3: "ITA", name: "Italy"},
-			LI: { ISO3: "LIE", name: "Liechtenstein"},// not on geo map 
-			LT: { ISO3: "LTU", name: "Lithuania"},
-			LU: { ISO3: "LUX", name: "Luxembourg"},
-			LV: { ISO3: "LVA", name: "Latvia"},
-			NL: { ISO3: "NLD", name: "Netherlands"},
-			NO: { ISO3: "NOR", name: "Norway"},
-			PL: { ISO3: "POL", name: "Poland"},
-			PT: { ISO3: "PRT", name: "Portugal"},
-			RO: { ISO3: "ROU", name: "Romania"},
-			SE: { ISO3: "SWE", name: "Sweden"},
-			SI: { ISO3: "SVN", name: "Slovenia"},
-			SK: { ISO3: "SVK", name: "Slovakia"},
-			UK: { ISO3: "GBR", name: "United Kingdom"}
-		};
 
 	var config = {
 		width : 1000,
@@ -95,13 +61,14 @@ function mapDrawing(){
 		projection : d3.geoMercator(),
 		duration : 2000,
 		key:function(d){return d.properties.ISO_A3; },
-		grid : c_grid
+		grid : c_grid,
 	};
 
 	var svg = d3.select('body')
 		.append('svg')
 		.attr('width',config.width)
-		.attr('height',config.height);
+		.attr('height',config.height)
+		.attr("id","view");
 
 	var g2r = new geo2rect.draw();
 
@@ -111,15 +78,22 @@ function mapDrawing(){
 		g2r.data = geojson;
 		g2r.svg = svg.append('g');
 		g2r.draw();
+		
+		console.log(svg.selectAll("path"));
+		
 	});
 
 	d3.select('#toggle').on('click', function(){
 		g2r.toggle();
 		g2r.draw();
-	console.log(g2r._mode);
-	for(let c in trans_data){
-		d3.select("#" + trans_data[c].ISO3).attr("fill","Grey");
-	}
+		console.log(g2r._mode);
+		/*for(let c in trans_data){
+			if(g2r._mode === "rect"){
+				d3.select("#" + trans_data[c].ISO3).attr("fill","Grey");
+			}else{
+				d3.select("#" + trans_data[c].ISO3).attr("fill","black");
+			}
+		}*/
 	});
 
 	
