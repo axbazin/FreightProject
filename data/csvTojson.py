@@ -357,28 +357,3 @@ def main() :
 	
 if __name__ == "__main__" :
 	main()
-
-
-
-
-			##if cLoad in translate.keys() :
-				##megaDict["2016"][cLoad][typeGood][cUnload] = year2016
-				##megaDict["2015"][cLoad][typeGood][cUnload] = year2015
-				##megaDict["2014"][cLoad][typeGood][cUnload] = year2014
-				##megaDict["2013"][cLoad][typeGood][cUnload] = year2013
-				##megaDict["2012"][cLoad][typeGood][cUnload] = year2012
-				##megaDict["2011"][cLoad][typeGood][cUnload] = year2011
-				##megaDict["2010"][cLoad][typeGood][cUnload] = year2010
-				##megaDict["2009"][cLoad][typeGood][cUnload] = year2009
-				##megaDict["2008"][cLoad][typeGood][cUnload] = year2008
-				
-			##print("Carriage : " + carriage + " Country Load : " + cLoad + " Country unload : " + cUnload + " type of good : " + typeGood)
-			##print("2016 : " + year2016)
-			##print("2015 : " + year2015)
-			##print("2014 : " + year2014)
-			##print("2013 : " + year2013)
-			##print("2012 : " + year2012)
-			##print("2011 : " + year2011)
-			##print("2010 : " + year2010)
-			##print("2009 : " + year2009)
-			##print("2008 : " + year2008)
