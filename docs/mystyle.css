@@ -1,0 +1,45 @@
+#visu-box{
+	position: absolute;
+	top : 150px;
+	/*border : 1px solid red;*/
+}
+#map-box{
+	float: left;
+	width : 1000px;
+	height : 800px;
+	/*border : 1px solid green;*/
+}
+
+#opt-box{
+	float : left;
+	width : 300px;
+	/*border : 1px solid orange;*/
+
+}
+
+.opt{
+	margin: 1em;
+}
+
+table {
+	border-spacing: 1em;
+}
+
+
+
+
+div.tooltip {
+    color: #222;
+    background-color: #fff;
+    padding: .5em;
+    text-shadow: #f5f5f5 0 1px 0;
+    border-radius: 2px;
+    opacity: 0.9;
+    position: absolute;
+}
+
+.hidden {
+	display: none;
+}
+
+

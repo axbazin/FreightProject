@@ -8,10 +8,12 @@
 	<script src="geo2rect.js"></script>
 	<script type="text/javascript" src="map.js"></script>
 	<title>DataViz of Freight Transport around Europe</title>
+	<link rel="stylesheet" href="mystyle.css">
 	<link rel="stylesheet" href="./assets/css/style.css">
+	
 	<style>
 		figure {
-			background-color: lightblue;
+			background-color: #ADD8E6;
 		}
 	</style>
 		
@@ -23,11 +25,68 @@
 		<h1>Freight Transport around Europe</h1>
 		<h2> By <a href="https://github.com/BarbierJeremy">Jeremy Barbier</a>, <a href="https://github.com/axbazin">Adelme Bazin</a> and <a href="https://github.com/Npfn">Nina Paffoni</a></h2>
 	</header>
-	<section>
-		<button id="toggle">Toggle map</button><br />
-		<figure>
-			<script>mapDrawing();</script>
-		</figure>
-	</section>
+
+	<div id='visu-box' class='div-box'>
+		<div id="map-box" class='div-box'>
+			<button id="toggle">Toggle map</button><br/>
+			<figure>
+				<script>mapDrawing();</script>
+			</figure>
+		</div>
+
+		<div id="opt-box" class='div-box'>
+	  		<div class="opt">
+	  			<input id="slider" type="range" value="1" min="2008" max="2016" step="1" />
+	  			<span id="year">year</span>
+	  		</div>
+
+
+
+	  		<div class="opt"><input type="radio" name="checkbox" value="export" checked>export 
+	  		<input id = "myCheckbox" name="checkbox" type="radio" value="import">import</div>
+	  		<div id ='cat' class="opt">
+	  			<span>categories of goods (<a href='http://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Standard_goods_classification_for_transport_statistics_(NST)'>see details</a>):</span>
+	  			<table>
+					<tbody>
+					<tr>
+					<td><div>all</div></td>
+					<td><div title='Products of agriculture, hunting, and forestry; fish and other fishing products'>001</div></td>
+					<td><div title='Coal and lignite; crude petroleum and natural gas'>002</div></td>
+					</tr>
+					<tr>
+					<td><div title='Metal ores and other mining and quarrying products; peat; uranium and thorium'>003</div></td>
+					<td><div title='Food products, beverages and tobacco'>004</div></td>
+					<td><div title='Textiles and textile products; leather and leather products'>005</div></td>
+					</tr>
+					<tr>
+					<td><div title='Wood and products of wood and cork (except furniture); articles of straw and plaiting materials; pulp, paper and paper products; printed matter and recorded media'>006</div></td>
+					<td><div title='Coke and refined petroleum products'>007</div></td>
+					<td><div title='Chemicals, chemical products, and man-made fibers; rubber and plastic products; nuclear fuel'>008</div></td>
+					</tr>
+					<tr>
+					<td><div title='Other non metallic mineral products'>009</div></td>
+					<td><div title='Basic metals; fabricated metal products, except machinery and equipment'>010</div></td>
+					<td><div title='Machinery and equipment n.e.c.; office machinery and computers; electrical machinery and apparatus n.e.c.; radio, television and communication equipment and apparatus; medical, precision and optical instruments; watches and clocks'>011</div></td>
+					</tr>
+					<tr>
+					<td><div title='Transport equipment'>012</div></td>
+					<td><div title='Furniture; other manufactured goods n.e.c.'>013</div></td>
+					<td><div title='Secondary raw materials; municipal wastes and other wastes'>014</div></td>
+					</tr>
+					<tr>
+					<td><div title='Mail, parcels'>015</div></td>
+					<td><div title='Equipment and material utilized in the transport of goods'>016</div></td>
+					<td><div title='Goods moved in the course of household and office removals; baggage and articles accompanying travellers; motor vehicles being moved for repair; other non market goods n.e.c.'>017</div></td>
+					</tr>
+					<tr>
+					<td><div title='Grouped goods: a mixture of types of goods which are transported together'>018</div></td>
+					<td><div title='Unidentifiable goods: goods which for any reason cannot be identified and therefore cannot be assigned to groups 01-16'>019</div></td>
+					<td><div title='Other goods n.e.c.'>020</div></td>
+					</tr>
+					</tbody>
+					</table>
+	  		</div>
+		</div>
+	</div>
 </body>
 </html>
