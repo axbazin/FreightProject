@@ -489,6 +489,7 @@
 						var tPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						tPath.exit();
 						tPath.enter().append("path").attr('class', function (d) {
+							//return 'country';
 							return 'id-' + _this.config.key(d);
 						});
 			
