@@ -344,15 +344,20 @@ def main() :
 
 	imports = Make_dictionary_Import("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
+	freight = {}
+	freight["import"] = imports
+	freight["export"] = exports
 
 	##print(exports["2016"]["FRA"]["GT01"])
 	##print(imports["2016"]["FRA"]["GT01"])
-	
-	with open('exports.json', 'w') as outfile:
-		json.dump(exports, outfile, ensure_ascii=False)
 
-	with open('imports.json', 'w') as outfile :
-		json.dump(imports, outfile, ensure_ascii=False)
+	with open('freight.json', 'w') as outfile :
+		json.dump(freight, outfile, ensure_ascii=False)
+	##with open('exports.json', 'w') as outfile:
+		##json.dump(exports, outfile, ensure_ascii=False)
+
+	##with open('imports.json', 'w') as outfile :
+		##json.dump(imports, outfile, ensure_ascii=False)
 
 	
 if __name__ == "__main__" :
