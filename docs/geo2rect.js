@@ -512,10 +512,10 @@
 						}).attr('id', function(d){return d.properties.ISO_A3;})//Ajout Adelme.
 						.attr("fill",function(d){ 
 							if (_this._mode === 'rect' && CheckTrans(trans_data, d.properties.ISO_A3)){
-								return "Grey";
+								return "#ffd59b";
 							}
 							else{
-								return "Black";
+								return "#ffd59b";
 							}
 						}).on("end",function(d){
 								var rectClass = document.getElementsByClassName(d.properties.ISO_A3 + "_smallrect");
@@ -539,7 +539,7 @@
 											rectClass[cou].style.fill = "Blue";
 										}
 										if(!CheckTrans(trans_data, key)){
-											rectClass[cou].style.fill = "Black";
+											rectClass[cou].style.fill = "#ffd59b";
 										}
 										cou++;
 									}
@@ -565,7 +565,7 @@
 									.attr("y", 0)
 									.attr("width",100)
 									.attr("height",100)
-									.attr("fill","Red")
+									.attr("fill","#ffd59b")
 									.style("opacity","0.5")
 									.style("visibility","visible");
 							}//fin ajout Adelme.

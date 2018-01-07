@@ -80,12 +80,14 @@ function mapDrawing(){
 
 	var g2r = new geo2rect.draw();
 
+	var currentYear=2008,
+		currentGood="TOTAL",
+		currentDir="export";
 
-	d3.json("exports.json", function(err,data){
-
+	d3.json("freight.json", function(err,data){
+		console.log(err);
 		var yearsArray = Object.keys(data);
 		var currentYear = yearsArray[0];
-
 		
 		colours.domain([
 			0,20000
@@ -102,20 +104,40 @@ function mapDrawing(){
 			g2r.svg = svg.append('g');
 			g2r.draw();
 
-
-			for(var i=0; i<Object.keys(data[currentYear]).length ; i++){
+			/*for(var i=0; i<Object.keys(data[currentYear]).length ; i++){
 				d3.select(".id-"+ Object.keys(data[currentYear])[i])
 					.style("fill", colours(Object.values(data[currentYear])[i].TOTAL.TOTAL));
+				//console.log(Object.values(d[currentYear])[i].TOTAL.TOTAL);
+			}*/
+			var currData = data[currentDir];
+			console.log(currData);
+			console.log(currData[currentYear]);
+			for(var i in currData[currentYear]){
+				console.log(i);
+				d3.select(".id-"+ currData[currentYear][i])
+					.style("fill","white");
 				//console.log(Object.values(d[currentYear])[i].TOTAL.TOTAL);
 			}
 		});
 
       	d3.select("#slider").on("input", function() {
 			d3.select('#year').html(this.value);
-			updateViz(this.value, data,colours);
+			currentYear = this.value;
+			updateViz(currentYear, currentGood, data,colours, currentDir);
 		});
-
-		d3.select()
+		
+		console.log("hello");
+		
+		console.log(d3.selectAll(".goodtype"));
+		
+		d3.selectAll('.goodtype').on("change", function(){
+			//console.log(this.value);
+			//console.log(currentGood);
+			//console.log(d3.select("#" + currentGood));
+			d3.select("#" + currentGood).property("checked",true);
+			currentGood = this.value;
+			updateViz(currentYear,currentGood,data,colours, currentDir);
+		});
 	});
 
 
@@ -137,28 +159,68 @@ function mapDrawing(){
 }
 
 function HandleMouseOn(d){
-	console.log(d.key);
-  	// tooltip.classed('hiden',false)
-   //      .html(d.key)
-   //      .style("left", (d3.event.pageX) + "px")		
-   //      .style("top", (d3.event.pageY - 28) + "px");
+	//console.log(d.key);
+	tooltip.classed('hidden',false)
+	      .html(d.key)
+	      .style("left", (d3.event.pageX) + "px")		
+	      .style("top", (d3.event.pageY - 28) + "px");
 }
 
 function HandleMouseOut(){
-  	// tooltip.classed('hiden',true);
+  	tooltip.classed('hidden',true);
 }
 
 
-function updateViz(currentYear, data, colours){
+function updateViz(currentYear, currentGood, data, colours, currentDir){
 	//color la map avec les données pour l'année currentYear
-		for(var i=0 ; i<Object.keys(data[currentYear]).length ; i++){
+		
+		
+		currData = data[currentDir];
+		
+		console.log(maxGood);
+		colours.domain([0,maxGood]);
+		
+		for(var i=0 ; i<Object.keys(currData[currentYear]).length ; i++){
+
+			var maxGood = 0;
+			var pays = Object.keys(currData[currentYear])[i];
+			for(var op in currData[currentYear][pays][currentGood]){
+				if(maxGood < currData[currentYear][pays][currentGood][op]){
+					maxGood = currData[currentYear][pays][currentGood][op];
+				}
+			}
+			
+			console.log(maxGood);
+			
+			for( var srec in Object.values(currData[currentYear])[i][currentGood]){
+				
+				if(Object.keys(currData[currentYear])[i] == srec){
+					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
+						.style("fill","blue");
+				}else{
+					
+					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
+						.style("fill", function(){
+							if(Object.values(currData[currentYear])[i][currentGood][srec]){
+							//console.log(Object.values(data[currentYear])[i]);
+								return colours(Object.values(currData[currentYear])[i][currentGood][srec]);
+							}else{
+								return colours(0);
+							}
+						});
+					
+				}
+					
+			}
+			/*
 			d3.select('.id-'+ Object.keys(data[currentYear])[i])
 				.style("fill", function(){
 					if(Object.values(data[currentYear])[i].TOTAL.TOTAL){
-						return colours(Object.values(data[currentYear])[i].TOTAL.TOTAL)
+						//console.log(Object.values(data[currentYear])[i]);
+						return colours(Object.values(data[currentYear])[i][currentGood].TOTAL)
 					}else{
 						return "#ccc"
 					}
-				});
+				});*/
 		}
 }

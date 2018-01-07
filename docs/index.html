@@ -22,9 +22,9 @@
 
 <body>
 	<header>
-		<h1>Freight Transport around Europe</h1>
+		<!--<h1>Freight Transport around Europe</h1>
 		<h2> By <a href="https://github.com/BarbierJeremy">Jeremy Barbier</a>, <a href="https://github.com/axbazin">Adelme Bazin</a> and <a href="https://github.com/Npfn">Nina Paffoni</a></h2>
-	</header>
+	--></header>
 
 	<div id='visu-box' class='div-box'>
 		<div id="map-box" class='div-box'>
@@ -36,55 +36,57 @@
 
 		<div id="opt-box" class='div-box'>
 	  		<div class="opt">
-	  			<input id="slider" type="range" value="1" min="2008" max="2016" step="1" />
-	  			<span id="year">year</span>
+	  			<input id="slider" type="range" value="2008" min="2008" max="2016" step="1" />
+	  			<span id="year">2008</span>
 	  		</div>
 
-
+			
 
 	  		<div class="opt"><input type="radio" name="checkbox" value="export" checked>export 
 	  		<input id = "myCheckbox" name="checkbox" type="radio" value="import">import</div>
 	  		<div id ='cat' class="opt">
 	  			<span>categories of goods (<a href='http://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Standard_goods_classification_for_transport_statistics_(NST)'>see details</a>):</span>
 	  			<table>
+					<form>
 					<tbody>
 					<tr>
-					<td><div>all</div></td>
-					<td><div title='Products of agriculture, hunting, and forestry; fish and other fishing products'>001</div></td>
-					<td><div title='Coal and lignite; crude petroleum and natural gas'>002</div></td>
+					<td><div><input type="radio" class="goodtype" value="TOTAL" id="TOTAL" checked>all</div></td>
+					<td><div title='Products of agriculture, hunting, and forestry; fish and other fishing products'><input type="radio" class="goodtype" id="GT01" value="GT01">001</div></td>
+					<td><div title='Coal and lignite; crude petroleum and natural gas'><input type="radio" class="goodtype" id="GT02" value="GT02">002</div></td>
 					</tr>
 					<tr>
-					<td><div title='Metal ores and other mining and quarrying products; peat; uranium and thorium'>003</div></td>
-					<td><div title='Food products, beverages and tobacco'>004</div></td>
-					<td><div title='Textiles and textile products; leather and leather products'>005</div></td>
+					<td><div title='Metal ores and other mining and quarrying products; peat; uranium and thorium'><input type="radio" class="goodtype" id="GT03"  value="GT03">003</div></td>
+					<td><div title='Food products, beverages and tobacco'><input type="radio" class="goodtype" id="GT04" value="GT04">004</div></td>
+					<td><div title='Textiles and textile products; leather and leather products'><input type="radio" class="goodtype" id="GT05" value="GT05">005</div></td>
 					</tr>
 					<tr>
-					<td><div title='Wood and products of wood and cork (except furniture); articles of straw and plaiting materials; pulp, paper and paper products; printed matter and recorded media'>006</div></td>
-					<td><div title='Coke and refined petroleum products'>007</div></td>
-					<td><div title='Chemicals, chemical products, and man-made fibers; rubber and plastic products; nuclear fuel'>008</div></td>
+					<td><div title='Wood and products of wood and cork (except furniture); articles of straw and plaiting materials; pulp, paper and paper products; printed matter and recorded media'><input type="radio" class="goodtype" id="GT06" value="GT06">006</div></td>
+					<td><div title='Coke and refined petroleum products'><input type="radio" class="goodtype" id="GT07" value="GT07">007</div></td>
+					<td><div title='Chemicals, chemical products, and man-made fibers; rubber and plastic products; nuclear fuel'><input type="radio" class="goodtype" value="GT08">008</div></td>
 					</tr>
 					<tr>
-					<td><div title='Other non metallic mineral products'>009</div></td>
-					<td><div title='Basic metals; fabricated metal products, except machinery and equipment'>010</div></td>
-					<td><div title='Machinery and equipment n.e.c.; office machinery and computers; electrical machinery and apparatus n.e.c.; radio, television and communication equipment and apparatus; medical, precision and optical instruments; watches and clocks'>011</div></td>
+					<td><div title='Other non metallic mineral products'><input type="radio" class="goodtype" id="GT09" value="GT09">009</div></td>
+					<td><div title='Basic metals; fabricated metal products, except machinery and equipment'><input type="radio" class="goodtype" id="GT10"  value="GT10">010</div></td>
+					<td><div title='Machinery and equipment n.e.c.; office machinery and computers; electrical machinery and apparatus n.e.c.; radio, television and communication equipment and apparatus; medical, precision and optical instruments; watches and clocks'><input type="radio" class="goodtype" id="GT11" value="GT11">011</div></td>
 					</tr>
 					<tr>
-					<td><div title='Transport equipment'>012</div></td>
-					<td><div title='Furniture; other manufactured goods n.e.c.'>013</div></td>
-					<td><div title='Secondary raw materials; municipal wastes and other wastes'>014</div></td>
+					<td><div title='Transport equipment'><input type="radio" class="goodtype" id="GT12" value="GT12">012</div></td>
+					<td><div title='Furniture; other manufactured goods n.e.c.'><input type="radio" class="goodtype" id="GT13" value="GT13">013</div></td>
+					<td><div title='Secondary raw materials; municipal wastes and other wastes'><input type="radio" class="goodtype" id="GT14" value="GT14">014</div></td>
 					</tr>
 					<tr>
-					<td><div title='Mail, parcels'>015</div></td>
-					<td><div title='Equipment and material utilized in the transport of goods'>016</div></td>
-					<td><div title='Goods moved in the course of household and office removals; baggage and articles accompanying travellers; motor vehicles being moved for repair; other non market goods n.e.c.'>017</div></td>
+					<td><div title='Mail, parcels'><input type="radio" class="goodtype" id="GT15" value="GT15">015</div></td>
+					<td><div title='Equipment and material utilized in the transport of goods'><input type="radio" class="goodtype" id="GT16" value="GT16">016</div></td>
+					<td><div title='Goods moved in the course of household and office removals; baggage and articles accompanying travellers; motor vehicles being moved for repair; other non market goods n.e.c.'><input type="radio" class="goodtype" id="GT17" value="GT17">017</div></td>
 					</tr>
 					<tr>
-					<td><div title='Grouped goods: a mixture of types of goods which are transported together'>018</div></td>
-					<td><div title='Unidentifiable goods: goods which for any reason cannot be identified and therefore cannot be assigned to groups 01-16'>019</div></td>
-					<td><div title='Other goods n.e.c.'>020</div></td>
+					<td><div title='Grouped goods: a mixture of types of goods which are transported together'><input type="radio" class="goodtype" id="GT18" value="GT18">018</div></td>
+					<td><div title='Unidentifiable goods: goods which for any reason cannot be identified and therefore cannot be assigned to groups 01-16'><input type="radio" class="goodtype" id="GT19" value="GT19">019</div></td>
+					<td><div title='Other goods n.e.c.'><input type="radio" class="goodtype" id="GT20" value="GT20">020</div></td>
 					</tr>
 					</tbody>
-					</table>
+					</form>
+				</table>
 	  		</div>
 		</div>
 	</div>
