@@ -339,10 +339,13 @@ def main() :
 
 	
 	ISO_Translate = json.load(open("iso2Toiso3.json", 'r'))
-	##print(ISO_Translate)
+	ISO_Translate["UK"] = "GBK"
+	ISO_Translate["EL"] = "GRC"
+	
 	exports = Make_dictionary_Export("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
 	imports = Make_dictionary_Import("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
+
 
 	freight = {}
 	freight["import"] = imports
@@ -353,6 +356,8 @@ def main() :
 
 	with open('freight.json', 'w') as outfile :
 		json.dump(freight, outfile, ensure_ascii=False)
+
+		
 	##with open('exports.json', 'w') as outfile:
 		##json.dump(exports, outfile, ensure_ascii=False)
 
