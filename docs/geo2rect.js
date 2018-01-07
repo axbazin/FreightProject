@@ -36,7 +36,15 @@
 			SI: { ISO3: "SVN", name: "Slovenia"},
 			SK: { ISO3: "SVK", name: "Slovakia"},
 			UK: { ISO3: "GBK", name: "United Kingdom"},
-			UA: { ISO3: "UKR", name:"Ukraine"}
+			UA: { ISO3: "UKR", name:"Ukraine"},
+			XX: { ISO3: "ISL", name: "Iceland"},
+			XY: { ISO3: "BLR", name: "Belarus"},
+			KO: { ISO3: "KOS", name: "Kosovo"},
+			RS: { ISO3: "SRB", name: "Serbia"},
+			ME: { ISO3: "MNE", name: "Montenegro"},
+			BA: { ISO3: "BIH", name: "Bosnia"},
+			MK: { ISO3: "MKD", name: "Macedonia"},
+			MD: { ISO3: "MDA", name: "Moldova"}
 		};
 
 
@@ -489,12 +497,26 @@
 						var myPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						var tPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						tPath.exit();
-						tPath.enter().append("path").attr('class', function (d) {
+						tPath.enter().append("path").attr("id",function(d){return _this.config.key(d);}).attr('class', function (d) {
 							//return 'country';
 							return 'id-' + _this.config.key(d);
 						});
 			
-						_this3._svg.selectAll("path").transition().duration(_this3._config.duration).attr('transform', function (d) {
+						var tooltip = d3.select('body').append('div')
+									.attr('class', 'hidden tooltip');
+			
+						_this3._svg.selectAll("path").on("mousemove", function(){
+								console.log("... my old friend ...");
+								var mouse = d3.mouse(d3.select('svg').node()).map(function(d) {
+									return parseInt(d);
+								});
+								tooltip.classed('hidden', false)
+									.attr('style', 'left:' + (mouse[0]) +
+										  'px; top:' + (mouse[1]) + 'px')
+									.html(getName(this.id));
+							}).on("mouseout",function(){
+									tooltip.classed("hidden",true);
+								}).transition().duration(_this3._config.duration).attr('transform', function (d) {
 							var tx = 0,
 									ty = 0;
 							if (_this.mode != 'geo') {
@@ -528,6 +550,7 @@
 										rectClass[cou].setAttribute("width", pos.width / 8);
 										rectClass[cou].setAttribute("height", pos.height / 8);
 										rectClass[cou].setAttribute("id", d.properties.ISO_A3 + "-" + key);
+										
 										if( d.properties.ISO_A3 == key){
 											rectClass[cou].style.fill = "Blue";
 										}
@@ -560,7 +583,21 @@
 									.attr("height",100)
 									.attr("fill","Black")
 									.style("opacity","0.5")
-									.style("visibility","visible");
+									.style("visibility","visible")
+									.on("mousemove", function(){
+										console.log("... my old friend ...");
+										console.log(this.id.split('-'));
+										var mouse = d3.mouse(d3.select('svg').node()).map(function(d) {
+											return parseInt(d);
+										});
+										tooltip.classed('hidden', false)
+											.attr('style', 'left:' + (mouse[0]) +
+												  'px; top:' + (mouse[1]) + 'px')
+											.html(getName(this.id.split('-')[0]));
+									})
+									.on("mouseout",function(){
+										tooltip.classed("hidden",true);
+									});
 							}
 					})();
 				} else {
@@ -658,6 +695,17 @@
 	exports.draw = draw;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
+	
+	function getName( iso3){
+		console.log("... here I come...");
+		console.log(iso3);
+		for(let c in trans_data){
+			if(trans_data[c].ISO3 === iso3){
+				return trans_data[c].name;
+			}
+		}
+		return "No Data";
+	}
 	
 	function CheckTrans(trans_data, iso3){
 		for(let c in trans_data){

@@ -73,7 +73,6 @@ function mapDrawing(){
 	var tooltip = d3.select('body').append('div')
             .attr('class', 'tooltip');
 
-
 	var colours = d3.scaleLinear()
 		.range(['#ffd59b','#8b0000'])
 
@@ -99,6 +98,11 @@ function mapDrawing(){
 			g2r.data = geojson;
 			g2r.svg = svg.append('g');
 			g2r.draw();
+			
+			console.log("Hello darkness...");
+			//d3.selectAll("path").enter().append('path')
+			
+			//console.log(d3.selectAll("path"));
 			
 			var currData = data[currentDir];
 			for(var i in currData[currentYear]){
@@ -139,7 +143,7 @@ function mapDrawing(){
 	
 
 }
-
+/*
 function HandleMouseOn(d){
 	tooltip.classed('hidden',false)
 		.html(d.key)
@@ -150,7 +154,7 @@ function HandleMouseOn(d){
 function HandleMouseOut(){
   	tooltip.classed('hidden',true);
 }
-
+*/
 
 function updateViz(currentYear, currentGood, data, colours, currentDir){
 	//color la map avec les données pour l'année currentYear
