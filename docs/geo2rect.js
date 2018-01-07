@@ -482,6 +482,9 @@
 
 				if (this._init) {
 					(function () {
+						
+						//var clicked = false;
+						
 						var _this = _this3;
 						var myPath = _this3._svg.selectAll("path").data(_this3._data.features);
 						var tPath = _this3._svg.selectAll("path").data(_this3._data.features);
@@ -555,7 +558,7 @@
 									.attr("y", 0)
 									.attr("width",100)
 									.attr("height",100)
-									.attr("fill","#ffd59b")
+									.attr("fill","Black")
 									.style("opacity","0.5")
 									.style("visibility","visible");
 							}
@@ -656,7 +659,6 @@
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 	
-	//ajout Adelme:
 	function CheckTrans(trans_data, iso3){
 		for(let c in trans_data){
 			if(trans_data[c].ISO3 === iso3){
