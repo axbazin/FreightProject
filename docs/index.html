@@ -42,15 +42,17 @@
 
 			
 
-	  		<div class="opt"><input type="radio" name="checkbox" value="export" checked>export 
-	  		<input id = "myCheckbox" name="checkbox" type="radio" value="import">import</div>
+	  		<div class="opt">
+				<input class="direction" type="radio" name="checkbox" value="export" checked>export 
+				<input class="direction" id = "myCheckbox" name="checkbox" type="radio" value="import">import
+			</div>
 	  		<div id ='cat' class="opt">
 	  			<span>categories of goods (<a href='http://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Standard_goods_classification_for_transport_statistics_(NST)'>see details</a>):</span>
 	  			<table>
 					<form>
 					<tbody>
 					<tr>
-					<td><div><input type="radio" class="goodtype" value="TOTAL" id="TOTAL" checked>all</div></td>
+					<td><div><input type="radio" class="goodtype" value="TOTAL" id="TOTAL">all</div></td>
 					<td><div title='Products of agriculture, hunting, and forestry; fish and other fishing products'><input type="radio" class="goodtype" id="GT01" value="GT01">001</div></td>
 					<td><div title='Coal and lignite; crude petroleum and natural gas'><input type="radio" class="goodtype" id="GT02" value="GT02">002</div></td>
 					</tr>

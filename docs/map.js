@@ -21,7 +21,7 @@ function mapDrawing(){
 			EST: { x: 6, y: 1 },
 			FIN: { x: 6, y: 0 },
 			FRA: { x: 1, y: 4 },
-			GBR: { x: 1, y: 2 },
+			GBK: { x: 1, y: 2 },
 			//GEO: { x: 8, y: 5 },
 			GRC: { x: 7, y: 7 },// here
 			HUN: { x: 5, y: 5 },
@@ -85,9 +85,8 @@ function mapDrawing(){
 		currentDir="export";
 
 	d3.json("freight.json", function(err,data){
-		console.log(err);
 		var yearsArray = Object.keys(data);
-		var currentYear = yearsArray[0];
+		//var currentYear = yearsArray[0];
 		
 		colours.domain([
 			0,20000
@@ -104,21 +103,19 @@ function mapDrawing(){
 			g2r.svg = svg.append('g');
 			g2r.draw();
 
-			/*for(var i=0; i<Object.keys(data[currentYear]).length ; i++){
+			for(var i=0; i<Object.keys(data[currentYear]).length ; i++){
 				d3.select(".id-"+ Object.keys(data[currentYear])[i])
 					.style("fill", colours(Object.values(data[currentYear])[i].TOTAL.TOTAL));
 				//console.log(Object.values(d[currentYear])[i].TOTAL.TOTAL);
-			}*/
+			}
 			var currData = data[currentDir];
-			console.log(currData);
-			console.log(currData[currentYear]);
 			for(var i in currData[currentYear]){
-				console.log(i);
-				d3.select(".id-"+ currData[currentYear][i])
-					.style("fill","white");
-				//console.log(Object.values(d[currentYear])[i].TOTAL.TOTAL);
+				d3.select(".id-"+ i)
+					.style("fill","grey");
 			}
 		});
+
+		
 
       	d3.select("#slider").on("input", function() {
 			d3.select('#year').html(this.value);
@@ -126,35 +123,28 @@ function mapDrawing(){
 			updateViz(currentYear, currentGood, data,colours, currentDir);
 		});
 		
-		console.log("hello");
-		
-		console.log(d3.selectAll(".goodtype"));
-		
+		d3.selectAll('.direction').on("change", function(){
+			currentDir = this.value;
+			updateViz(currentYear, currentGood, data,colours, currentDir);
+		});
+				
 		d3.selectAll('.goodtype').on("change", function(){
-			//console.log(this.value);
-			//console.log(currentGood);
-			//console.log(d3.select("#" + currentGood));
-			d3.select("#" + currentGood).property("checked",true);
+			d3.select("#" + currentGood).property("checked",false);
 			currentGood = this.value;
 			updateViz(currentYear,currentGood,data,colours, currentDir);
+		});
+		
+		d3.select('#toggle').on('click', function(){
+			g2r.toggle();
+			g2r.draw();
+			updateViz(currentYear, currentGood, data, colours, currentDir);
 		});
 	});
 
 
 
 
-	d3.select('#toggle').on('click', function(){
-		g2r.toggle();
-		g2r.draw();
-		//console.log(g2r._mode);
-		/*for(let c in trans_data){
-			if(g2r._mode === "rect"){
-				d3.select("#" + trans_data[c].ISO3).attr("fill","Grey");
-			}else{
-				d3.select("#" + trans_data[c].ISO3).attr("fill","black");
-			}
-		}*/
-	});
+	
 
 }
 
@@ -174,24 +164,19 @@ function HandleMouseOut(){
 function updateViz(currentYear, currentGood, data, colours, currentDir){
 	//color la map avec les données pour l'année currentYear
 		
-		
 		currData = data[currentDir];
-		
-		console.log(maxGood);
-		colours.domain([0,maxGood]);
 		
 		for(var i=0 ; i<Object.keys(currData[currentYear]).length ; i++){
 
 			var maxGood = 0;
 			var pays = Object.keys(currData[currentYear])[i];
 			for(var op in currData[currentYear][pays][currentGood]){
-				if(maxGood < currData[currentYear][pays][currentGood][op]){
+				if(maxGood < currData[currentYear][pays][currentGood][op] && op != "TOTAL"){
 					maxGood = currData[currentYear][pays][currentGood][op];
 				}
 			}
 			
-			console.log(maxGood);
-			
+			colours.domain([0,maxGood]);
 			for( var srec in Object.values(currData[currentYear])[i][currentGood]){
 				
 				if(Object.keys(currData[currentYear])[i] == srec){
@@ -201,6 +186,9 @@ function updateViz(currentYear, currentGood, data, colours, currentDir){
 					
 					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
 						.style("fill", function(){
+							if(maxGood == 0){
+								return "Black";
+							}
 							if(Object.values(currData[currentYear])[i][currentGood][srec]){
 							//console.log(Object.values(data[currentYear])[i]);
 								return colours(Object.values(currData[currentYear])[i][currentGood][srec]);
@@ -208,19 +196,7 @@ function updateViz(currentYear, currentGood, data, colours, currentDir){
 								return colours(0);
 							}
 						});
-					
-				}
-					
+				}		
 			}
-			/*
-			d3.select('.id-'+ Object.keys(data[currentYear])[i])
-				.style("fill", function(){
-					if(Object.values(data[currentYear])[i].TOTAL.TOTAL){
-						//console.log(Object.values(data[currentYear])[i]);
-						return colours(Object.values(data[currentYear])[i][currentGood].TOTAL)
-					}else{
-						return "#ccc"
-					}
-				});*/
 		}
 }

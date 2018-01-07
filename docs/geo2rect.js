@@ -4,7 +4,6 @@
 	(factory((global.geo2rect = global.geo2rect || {})));
 }(this, function (exports) { 'use strict';
 
-	//ajout Adelme.
 	var trans_data = { 
 			AD: { ISO3: "AND", name: "Andorra"},// not on geo map 
 			AL: { ISO3: "ALB", name: "Albania"},
@@ -36,14 +35,13 @@
 			SE: { ISO3: "SWE", name: "Sweden"},
 			SI: { ISO3: "SVN", name: "Slovenia"},
 			SK: { ISO3: "SVK", name: "Slovakia"},
-			UK: { ISO3: "GBR", name: "United Kingdom"}
+			UK: { ISO3: "GBK", name: "United Kingdom"},
+			UA: { ISO3: "UKR", name:"Ukraine"}
 		};
 
 
 
 	function compute (data) {
-
-		//TODO: check if data is in a valid format
 
 		data.features.forEach(function (d, di) {
 			//Preserve original coordinates
@@ -510,26 +508,18 @@
 								return _this._rPath(d.geometry.qcoordinates) + "Z";
 							}
 						}).attr('id', function(d){return d.properties.ISO_A3;})//Ajout Adelme.
-						.attr("fill",function(d){ 
-							if (_this._mode === 'rect' && CheckTrans(trans_data, d.properties.ISO_A3)){
-								return "#ffd59b";
-							}
-							else{
-								return "#ffd59b";
-							}
-						}).on("end",function(d){
+						.attr("fill","grey")
+						.on("end",function(d){
 								var rectClass = document.getElementsByClassName(d.properties.ISO_A3 + "_smallrect");
 								var square = document.getElementById(d.properties.ISO_A3);
 								var posview = document.getElementById("view").getBoundingClientRect();
 								var pos = square.getBoundingClientRect();
-								if(_this3._mode === "rect" && CheckTrans(trans_data, d.properties.ISO_A3)){
+								if(_this3._mode === "rect"){
 									var cou = 0;
 									var tGrid = _this3.config.grid
 									for(var key in tGrid){
-										//console.log(key);
 										
 										rectClass[cou].style.visibility = "visible";
-										//rectClass[cou].setAttribute("x", pos.x + ((pos.width / 8) * tGrid[key].x));
 										rectClass[cou].setAttribute("x", (pos.x - posview.x) + ((pos.width / 8) * tGrid[key].x));
 										rectClass[cou].setAttribute("y", (pos.y - posview.y) + ((pos.height / 8) * tGrid[key].y));
 										rectClass[cou].setAttribute("width", pos.width / 8);
@@ -539,7 +529,7 @@
 											rectClass[cou].style.fill = "Blue";
 										}
 										if(!CheckTrans(trans_data, key)){
-											rectClass[cou].style.fill = "#ffd59b";
+											rectClass[cou].style.fill = "Black";
 										}
 										cou++;
 									}
@@ -568,7 +558,7 @@
 									.attr("fill","#ffd59b")
 									.style("opacity","0.5")
 									.style("visibility","visible");
-							}//fin ajout Adelme.
+							}
 					})();
 				} else {
 					console.error('You must run update() first.');
