@@ -10,8 +10,8 @@ les retards sur les trains avec des [données de la SNCF](https://data.sncf.com/
 les satellites artificiels terrestres :
  * une base de donnée [ici](https://www.ucsusa.org/nuclear-weapons/space-weapons/satellite-database#.WlT6DSNejq1)
  * quelques data visualization déjà existantes : 
-   * [every active satellite orbiting earth](https://qz.com/296941/interactive-graphic-every-active-satellite-orbiting-earth/) par David Yanofsky et Tim Fernholz,  	
-   * [stuff in space](https://qz.com/296941/interactive-graphic-every-active-satellite-orbiting-earth/) par James Yoder, 
+   * [every active satellite orbiting earth](https://qz.com/296941/interactive-graphic-every-active-satellite-orbiting-earth/) par David Yanofsky et Tim Fernholz
+   * [stuff in space](https://qz.com/296941/interactive-graphic-every-active-satellite-orbiting-earth/) par James Yoder
 	* [active orbital satellites](https://www.behance.net/gallery/33677718/Active-Satellites-Poster) par Karl Engebretson
 	* [space junk](https://public.tableau.com/views/Satellites_0/Satellites?:embed=y&:display_count=yes&:showVizHome=no) par Ken Flerlage
 
@@ -43,7 +43,7 @@ Suite à cela nous rédigeons l’article intermédiaire à rendre le jour même
 Nous avons choisis de representer les exports (et les imports séparément) par des flèches proportionnelles à la quantité de marchandises (toutes categories de marchandises confondues). 
 Le nombre de pays étant limité, la représentation devrait restée lisible.
 
-img
+![Image of Yaktocat](https://img15.hostingpics.net/pics/582100Capturedcran20180109234644.png)
 
 Nous voulons pouvoir offrir néanmoins à l’utilisateur plus d’informations détaillées sur le types de marchandises pour cela nous proposons l’affichage un treemap lorsque l’utilisateur clique sur un pays spécifique.
 
