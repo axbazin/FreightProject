@@ -25,8 +25,11 @@ Nous nous sommes intéressé à trouver une problématique non explorée avec le
 
 ## 27 novembre 2017
 
-pas d’autre jeu de données sur les satellites en open access. Pas non plus d’autres idées d’axes d’intérêt qui n’a pas déjà été exploité dans les data visualisation existantes.
+Nous n'avons pas trouvé d’autre jeu de données sur les satellites en open access sur les satellites. 
+Nous n'avons pas non plus d’autres idées d’axes d’intérêt qui n’a pas déjà été exploité dans les data visualisation existantes.
+
 Une autre idée  : le transport de marchandises.
+
 Visualiser les transports de marchandises est particulièrement intéressant car cela peut apporter de nombreuses informations économiques (exporter est un signe de richesses, le types de marchandises exportées est encore plus révélateur) mais aussi politiques (relations entre les pays, politique d’autosuffisance) 
  * une large base de données de transports de fret en Europe : EuropaStat
 
