@@ -506,7 +506,7 @@
 									.attr('class', 'hidden tooltip');
 			
 						_this3._svg.selectAll("path").on("mousemove", function(){
-								console.log("... my old friend ...");
+								//console.log("... my old friend ...");
 								var mouse = d3.mouse(d3.select('svg').node()).map(function(d) {
 									return parseInt(d);
 								});
@@ -585,8 +585,8 @@
 									.style("opacity","0.5")
 									.style("visibility","visible")
 									.on("mousemove", function(){
-										console.log("... my old friend ...");
-										console.log(this.id.split('-'));
+										//console.log("... my old friend ...");
+										//console.log(this.id.split('-'));
 										var mouse = d3.mouse(d3.select('svg').node()).map(function(d) {
 											return parseInt(d);
 										});
@@ -697,8 +697,8 @@
 	Object.defineProperty(exports, '__esModule', { value: true });
 	
 	function getName( iso3){
-		console.log("... here I come...");
-		console.log(iso3);
+		//console.log("... here I come...");
+		//console.log(iso3);
 		for(let c in trans_data){
 			if(trans_data[c].ISO3 === iso3){
 				return trans_data[c].name;

@@ -99,7 +99,7 @@ function mapDrawing(){
 			g2r.svg = svg.append('g');
 			g2r.draw();
 			
-			console.log("Hello darkness...");
+			//console.log("Hello darkness...");
 			//d3.selectAll("path").enter().append('path')
 			
 			//console.log(d3.selectAll("path"));

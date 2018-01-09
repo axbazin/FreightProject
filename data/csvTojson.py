@@ -7,6 +7,11 @@ import json
 
 ##### EXPORT #####
 
+"""
+Make dictionnary of export, from the export file in tsv format, to write it in json format
+Uses Init Dict Export, get Data and add Total functions
+"""
+
 def Make_dictionary_Export(input_file, translate) :
 
 	#Init of Dictionnary :
@@ -22,10 +27,15 @@ def Make_dictionary_Export(input_file, translate) :
 		##print(typeGood + " : ") 
 		##print(megaDict["2016"]["FRA"][typeGood])
 
-	# Used for verif, data in dictionnary corresponds to the tsv file =D
+	# Used for verif, data in dictionnary corresponds to the tsv file, yeepee =D
 	
 	return megaDict
-	
+
+
+
+"""
+Initialize the dictionnary for the export
+"""
 def Init_Dict_Export(input_file, translate) : 
 
 	#Init empty dictionnary
@@ -47,16 +57,19 @@ def Init_Dict_Export(input_file, translate) :
 		if line == "" :
 			Fini = True
 		else :
+			# Split by tabulation first (tsv file), and first cell by comma after (separator for the first cell, don't ask why, idk) 
 			Line = line.split("\t")
 			Info = Line[0]
 			Info = Line[0].split(",")
+			#First cell contains all info useful (type of carriage, country of load/unload, etc. 
 			carriage = Info[0]
 			cLoad = Info[1]
 			cUnload = Info[2]
 			typeGood = Info[3]
 			unit = Info[4]
 			geoTime = Info[5]
-			
+
+			# Then get the numbers for each year (Totally useless now i guess - 09/01/18)
 			year2016 = Line[1]
 			year2015 = Line[2]
 			year2014 = Line[3]
@@ -67,10 +80,13 @@ def Init_Dict_Export(input_file, translate) :
 			year2009 = Line[8]
 			year2008 = Line[9]
 
+			# we have a list of the countries in which goods have been loaded. To init the dictionnary. So we put cload in that list if it's not already in it. 
 			if cLoad not in countryLoad :
 				countryLoad.append(cLoad)
+			# Same for unload countries 
 			if cUnload not in countryUnload :
 				countryUnload.append(cUnload)
+			# And for type of goods
 			if typeGood not in typeOfgood :
 				typeOfgood.append(typeGood)
 
@@ -97,7 +113,7 @@ def Init_Dict_Export(input_file, translate) :
 				for unload in cunloadTrans :
 					megaDict[str(year)][country][typeGood][unload] = 0 
 
-	# megaDict initalized, with all value to 0.
+	# megaDict initalized, with all value to 0. Follow this representation : 
 	# {
 		# 2016 :
 			# { FRA :
@@ -116,20 +132,21 @@ def Init_Dict_Export(input_file, translate) :
 		# 2015 : ...
 
 	return megaDict
-	
+
+"""
+get the data from the exports
+"""
 def get_Data_Export(input_file, translate, megaDict) :
 
 	f = open(input_file, 'r')
 	f.readline()
 	Fini = False
-	countryLoad = []
-	countryUnload = []
-	typeOfgood = []
 	while not Fini :
 		line = f.readline()
 		if line == "" :
 			Fini = True
 		else :
+			# Split by tabulation, then by comma, see function above to get why if it's not obvious 
 			Line = line.split("\t")
 			Info = Line[0]
 			Info = Line[0].split(",")
@@ -139,7 +156,8 @@ def get_Data_Export(input_file, translate, megaDict) :
 			typeGood = Info[3]
 			unit = Info[4]
 			geoTime = Info[5]
-			
+
+			# Get data for each year 
 			year2016 = Line[1]
 			year2015 = Line[2]
 			year2014 = Line[3]
@@ -150,15 +168,21 @@ def get_Data_Export(input_file, translate, megaDict) :
 			year2009 = Line[8]
 			year2008 = Line[9]
 
+			# We dont take the TOT lines, cause they are useless and break everything. We'll get the total from our total function, i checked, it changes nothing except focus on data we will use with our method 
 			if carriage != "TOT" :
-				
+
+				# We verify if the countries is in translate. In translate, we have every country of interest, with their ISO2 and ISO3 denomination 
 				Okay = False
+				# Verify country of loading
 				if cLoad in translate.keys() :
+					# AND country of unloading
 					if cUnload in translate.keys() :
+						# if both are in translate, we have an exchange between 2 countries of interest. So we translate their ISO2 in ISO3 (to use them in the map properly without translation to make in js, which would be less easy to do. 
 						cLoad = translate[cLoad]
 						cUnload = translate[cUnload]
 						Okay = True
 
+				# Okay is True, both countries are translated and of interest, we can add their data to the megaDict for each year. 
 				if Okay == True : 
 					megaDict["2008"][cLoad][typeGood][cUnload] += int(year2008)
 					megaDict["2009"][cLoad][typeGood][cUnload] += int(year2009)
@@ -170,20 +194,31 @@ def get_Data_Export(input_file, translate, megaDict) :
 					megaDict["2015"][cLoad][typeGood][cUnload] += int(year2015)
 					megaDict["2016"][cLoad][typeGood][cUnload] += int(year2016)
 
+"""
+Add the total in the dict. Cause we want them for the map. Total for each type of good by country, and for all type of good for each country
+"""
 def add_Total_Export(megaDict) :
-
+	# For each year ... 
 	for year in sorted(megaDict) :
+		# And each country ... 
 		for country in sorted(megaDict[year]) :
+			# And each type of good : 
 			for tGood in sorted(megaDict[year][country]) :
 				tot = 0
+				# get number from the unload country, and add it to the total 
 				for cunload in sorted(megaDict[year][country][tGood]) :
 					tot += int(megaDict[year][country][tGood][cunload])
+				# So the total for this type of good can be added to the dictionnary 
 				megaDict[year][country][tGood]["TOTAL"] = tot
 
 
 
 
 ##### IMPORT #####
+
+"""
+basically the same things as the exports, just switch load and unload, so to get more precision, see functions above, they are the same 
+"""
 
 def Make_dictionary_Import(input_file, translate) :
 	# Init dictionary 
@@ -324,7 +359,9 @@ def get_Data_Import(input_file, translate, megaDict) :
 					megaDict["2015"][cUnload][typeGood][cLoad] += int(year2015)
 					megaDict["2016"][cUnload][typeGood][cLoad] += int(year2016)
 
+
 def add_Total_Import(megaDict) :
+
 	for year in sorted(megaDict) :
 		for country in sorted(megaDict[year]) :
 			for tGood in sorted(megaDict[year][country]) :
@@ -339,30 +376,31 @@ def main() :
 
 	
 	ISO_Translate = json.load(open("iso2Toiso3.json", 'r'))
+	# We add manually 2 translation for greece and UK, cause there is more than one ISO3 for these 2 countries 
 	ISO_Translate["UK"] = "GBK"
 	ISO_Translate["EL"] = "GRC"
-	
+
+	# Get the export dictionnary 
 	exports = Make_dictionary_Export("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
+	# Get the import dictionnary 
 	imports = Make_dictionary_Import("Data_exchange_by_type_of_goods.tsv", ISO_Translate)
 
+	
+	## print(imports["2016"]["FRA"]["GT01"])
 
+	# Make the freight dictionnary, to only write in one file instead of two, with just one more stratum 
 	freight = {}
+	# In import, imports dictionnary, in export, export dictionnary 
 	freight["import"] = imports
 	freight["export"] = exports
 
 	##print(exports["2016"]["FRA"]["GT01"])
 	##print(imports["2016"]["FRA"]["GT01"])
 
+	# Write in json file 
 	with open('freight.json', 'w') as outfile :
 		json.dump(freight, outfile, ensure_ascii=False)
-
-		
-	##with open('exports.json', 'w') as outfile:
-		##json.dump(exports, outfile, ensure_ascii=False)
-
-	##with open('imports.json', 'w') as outfile :
-		##json.dump(imports, outfile, ensure_ascii=False)
 
 	
 if __name__ == "__main__" :
