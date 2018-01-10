@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: 2017-11-29-191538.aux
+The style file: plain.bst
+Database file #1: template.bib
+Warning--entry type for "shipmap" isn't style-file defined
+--line 108 of file template.bib
+Warning--entry type for "airtraffic" isn't style-file defined
+--line 115 of file template.bib
+Warning--entry type for "atlas" isn't style-file defined
+--line 123 of file template.bib
+Warning--entry type for "dataset" isn't style-file defined
+--line 132 of file template.bib
+You've used 4 entries,
+            2118 wiz_defined-function locations,
+            510 strings with 4262 characters,
+and the built_in function-call counts, 802 in all, are:
+= -- 66
+> -- 28
+< -- 0
++ -- 13
+- -- 8
+* -- 24
+:= -- 135
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 16
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 28
+empty$ -- 89
+format.name$ -- 8
+if$ -- 171
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 0
+newline$ -- 19
+num.names$ -- 8
+pop$ -- 34
+preamble$ -- 1
+purify$ -- 12
+quote$ -- 0
+skip$ -- 36
+stack$ -- 0
+substring$ -- 21
+swap$ -- 4
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 16
+warning$ -- 0
+while$ -- 8
+width$ -- 5
+write$ -- 32
+(There were 4 warnings)
