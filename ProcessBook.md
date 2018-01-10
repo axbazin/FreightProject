@@ -66,7 +66,7 @@ recherche pour comment faire des gridmaps et des OD maps en D3.
  - la librairie [geo2rect](https://github.com/sebastian-meier/d3.geo2rect) permet de réaliser facilement une gridmaps avec une transition vers la carte géographique classique à partir d’un fichier json.
  - la librairie [d3.layout.odmap](https://github.com/sebastian-meier/d3.geo2rect) pour faire facilement des od maps
  
- ## 21 décembre 2017
+## 21 décembre 2017
  
 Nous avons mis en place la gridmap pour l’Europe avec geo2rect sur notre Github.
 Nous nous sommes mis d’accord pour la répartition du travail que nous avons séparer en 3 :
