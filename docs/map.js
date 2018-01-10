@@ -80,7 +80,7 @@ function mapDrawing(){
 	var g2r = new geo2rect.draw();
 
 	var currentYear=2008,
-		currentGood="TOTAL",
+		currentGood="None",
 		currentDir="export";
 
 	d3.json("freight.json", function(err,data){
