@@ -22,44 +22,45 @@
 \maketitle
 
 \section{Introduction}
-In a world always more globalized, we found interesting to produce visualization about the transports of goods around the world. Our work is intended for people that want to know more about the freight between countries. The goal of this work is to highlight which countries are the biggest importers, which are the biggest exporters, and between which there are the most exchanges. 
-Another purpose of this project is to show this data considering the year studied. The target audience for this type of visualization will be anyone who wants to see the evolution of the world’s freight, and maybe correlate it with such-and-such element (for example a political change, maybe on the environmental policy). 
+In 2015, 323 billions of t-km of goods have been transported in Europe [1]. This freight is highly dominated by the road freight, representing more than 85 percent of the total freight. In this context, it could be interesting to produce visualization about this type of transport. It would be useful for different type of people, from beginners who just want to know a little more about road freight to professional that want to optimize their activities. 
+The goal is to highlight the biggest importers or exporters, by type of good or in general, and the countries between which there is the more exchange. For a professional use of these visualization, it could help the user to know which country to target if he wants to transport such-and-such type of good.
 
-To have something visual for the user, we choose to make an interactive map of Europe. This article will first describe the state of the art, and then discuss in what our visualization will be useful. The data the will be used will also be described. 
+# Détailler avec l'utilisation qu'en ferait un utilisateur lambda (par exemple info sur l'importe export de catégorie comme le pétrole, le tabac...
+# Permet d'avoir une visualisation globale, ce qui n'est pas le cas là ou on a pris les données (eurostat)
+
+
+Another purpose of the map is the link made with the time. Data are shown by year, which allows the user to make a link with events like political change, or climate disaster. 
+
 
 \section{Related Work}
-An intuitive visualisation is proposed on the shipmap.org website \cite{shipmap} which focuses on maritime transports around the world. Each ship is represented by a dot of different colour according to the type of ship (Container, Tanker, Vehicle…). It looks like (at a larger scale) what we want to produce, but with some inconvenients. First, the type of goods is not detailed, because of the use of colours, which restrains the different representable types to a small number if we want to keep simplicity. Finally, there is no indication about the quantity of goods transported by each ship, so we don’t have information on the proportions of goods sent or received by each country. In this case, we don’t have the information on the quantity of goods that the ship carrying.
 
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.2]{shipmap.jpg}
 \end{figure}
 
-Furthermore, we’d like to keep the idea of a map as a function of time, to show the evolution of freight in UE for several years (depending on what is shown/the data used). 
-
-Concerning network visualization, which we want to produce to show exchange between countries, we will base our work on visualizations produced by Martin Grandjean \cite{airtraffic}. This visualization is really good to show the principal localisation for the freight but it is way too complex to allow us to show the type of goods, or to differentiate importation and exportation. So we’ll have to simplify it before adding what we want to show in our visualization.
-
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.15]{airports-network-small.jpg}
 \end{figure}
-
-This third example of vizualisation shows another network. It’s presented in the atlas of economic complexity \cite{atlas}. Each node represents a product. It enables to present multiples products at once, but there is a single visualization for each country so it can be difficult if we want to compare countries between each other.
 
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.4]{economic_growth_atlas2.jpg}
 \end{figure}
 
-We decided to limit ourselves to the UE area and to focus on road freight, to keep the visualization simple by not adding too much information on it. Our work will be based on the one already done by the Eurostat organism, which has collected data about road, rail, sea and air freight in the European union. We will first focus on road freight (which represents about 75\% of the european freight \cite{dataset}), and eventually add rail if possible.
+# Dire où on a pris les données, et qu'il y a pas de visu globale vis à vis de celles ci
+# Ajouter une gridmap (OD map)
 
-Bar chart visualization have already been made by Eurostat, to show for example the repartition of type of transport for each country for a particular year. However we did not found any map visualization that could summarize the data. Plus we did not found in this work any visualization concerning the exchanges between countries.
-
-\section{Design Visualisation}
-We chose to start from maps to consider geographical advantages and constraints of each countries. This visualization gives a global point of view and it is very easy to understand by anyone. It appeared to us that it was primordial to keep simplicity that’s why we will also exclude representing imports and exports in the same visualisation to avoid overloading.
-The map offers global visualization but we want to allow the user to have more details by interacting with the visualization. For example by clicking on a specific country the user will show informations on types of goods.
-We want to use interactivity to keep visualization simple whichever level of detail is displayed.
-We’ll represent the evolution through time to show changes. We could use a cursor and/or an automatic display of time.
+\section{Project Description}
+# Description des données, et comment on les a modifié (csvTojson) pour les rendre utilisables avec js 
+# Intérêt de la représentation en gridmap
+# Formes simples (carré), donc visuellement plus facile à appréhender que si on avait des formes plus différentes (carte classique)
+# De plus, permet d'intégrer la map dans chaque carré, ce qui ne serait pas possible avec une carte normale. OD map (grid map dans une grid map) permet d'avoir des motifs dans chaque pays, et donc facilite la comparaison entre 2 pays. Faisable car sur l'Europe, une trentaine de pays, car si sur le monde entier trop d'informations. 
+# Le seul inconvénient, c'est que le fait que ce soit l'Europe saute pas aux yeux, c'est pour ça qu'on a conservé la carte classique de base, et qu'on a ajouté un tooltip  
+# Choix d'intensité de couleurs pour visualiser l'intensité du traffic, car c'est simple à comprendre. Pays par pays (avec le max du pays), car sinon on risquait d'avoir une concentration sur les plus gros consommateur/producteurs (France/Allemagne/Angleterre)
+# Pour naviguer, choix de checkbox car c'est le plus facile d'utilisation pour l'utilisateur
+# Même justification pour la scrollbar des années 
 
 \begin{figure}[H]
 \includegraphics[scale=0.35]{Capture_ecran_2017-11-29_171310.jpg}
@@ -71,8 +72,17 @@ We’ll represent the evolution through time to show changes. We could use a cur
 \caption{By clicking on a specific country (here Italy), the user will see only the flow of goods that involve the country and display details concerning types of goods}
 \end{figure}
 
+
+\section{Discussion}
+# Bien : simplicité de la visualisation par rapport à la complexité des données. Il faut comprendre ici que sur la carte sont représentées tous les échanges entre pays européens sur une année, donc quelque chose d'extrêmement complexe, et que ça reste malgré tout lisible et compréhensible, et qu'il est assez facile de voir entre quels pays il y a beaucoup d'échange, ou s'il y a une tendance (nord-sud/est-ouest par exemple).
+# Intérêt : Par exemple, on voit que lorsque on regarde de manière globale, on a assez peu de changement dans le temps dans la quantité d'échange entre les pays. Par contre si on regarde de manière plus détaillée, on a beaucoup plus de différence. Ce qui laisse l'utilisateur très libre quand à ce qu'il veut analyser.
+# Choix de couleur par pays, du coup on le justifie dans la discussion, mais ça empeche d'avoir une comparaison brute entre les pays directement (en terme de t-km par exemple)
+# Ouverture : Jeu de données plus détaillé serait intéressant (exemple on voit des différences pour l'agriculture mais on peut pas dire que ça vient de tel ou tel produit)
+
 \section{Conclusion \& Perspectives}
-As mentionned in the related work, our topic has already a lot of different visualizations. But it is also a complex theme, and it seems to lack of global visualization offering an overview of the european freight. So we will try to make one that allows the user to easily identify differences between countries for the quantity of goods imported/exported. It will also bring more detailed informations if the user wants to, by clicking on the country of interest. Finally, we’d like to allow the user to study the impact of a change that happened at a certain time, by providing a navigation trough time for the visualization.
+# Il y avait pas de visu sur les transports routiers, ou en tout cas pas sur eurostat. Suffisamment simple pour être comprise rapidement. Et si on s'y attarde, on peut y trouver énormément de données différentes et faire beaucoup d'analyses.
+
+
 \bibliographystyle{plain}
 \bibliography{template}
 \end{document}
