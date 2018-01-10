@@ -2,11 +2,11 @@
 	position: absolute;
 	top : 150px;
 }
+
 #map-box{
 	position : absolute;
 	width : 70%;
 	height : 100%;
-	/*overflow : auto;*/
 	top : 0%;
 	bottom : 0%;
 	right : 0%;
@@ -14,14 +14,13 @@
 }
 
 #opt-box{
-	position : relative;
+	position : absolute;
 	width : 30%;
-	/*overflow : auto;*/
 	top : 0%;
 	bottom : 0%;
 	right : 0%;
-	left : 400%;
-	height : 100%
+	left : 0%;
+	height : 100%;
 }
 
 .opt{
@@ -56,5 +55,3 @@ div.tooltip {
 .hidden {
 	display: none;
 }
-
-
