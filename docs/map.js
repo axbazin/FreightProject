@@ -180,7 +180,7 @@ function updateViz(currentYear, currentGood, data, colours, currentDir){
 				
 				if(Object.keys(currData[currentYear])[i] == srec){
 					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
-						.style("fill","#999999");
+						.style("fill","#333333"); //gris foncé
 				}else{
 					
 					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)

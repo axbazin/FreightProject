@@ -533,7 +533,7 @@
 								return _this._rPath(d.geometry.qcoordinates) + "Z";
 							}
 						}).attr('id', function(d){return d.properties.ISO_A3;})//Ajout Adelme.
-						.attr("fill","grey")
+						.attr("fill","#f0f0f0")
 						.on("end",function(d){
 								var rectClass = document.getElementsByClassName(d.properties.ISO_A3 + "_smallrect");
 								var square = document.getElementById(d.properties.ISO_A3);
@@ -552,10 +552,10 @@
 										rectClass[cou].setAttribute("id", d.properties.ISO_A3 + "-" + key);
 										
 										if( d.properties.ISO_A3 == key){
-											rectClass[cou].style.fill = "Blue";
+											rectClass[cou].style.fill = "#333333";
 										}
 										if(!CheckTrans(trans_data, key)){
-											rectClass[cou].style.fill = "Black";
+											rectClass[cou].style.fill = "#bdbdbd";
 										}
 										cou++;
 									}
@@ -581,7 +581,7 @@
 									.attr("y", 0)
 									.attr("width",100)
 									.attr("height",100)
-									.attr("fill","Black")
+									.attr("fill","#bdbdbd")
 									.style("opacity","0.5")
 									.style("visibility","visible")
 									.on("mousemove", function(){
