@@ -55,6 +55,15 @@ Another purpose of the map is the link made with the time. Data are shown by yea
 \section{Project Description}
 # Description des données, et comment on les a modifié (csvTojson) pour les rendre utilisables avec js 
 # Intérêt de la représentation en gridmap
+
+\subsection{Grid map}
+A tile grid map or simple grid map is a representation of a geographic area divided into a set of equal squares\cite{Good Data Visualization Practice: Tile Grid Maps}.
+The grid map is an unconventionnal choice to represent a geographic area but presents interesting advantages in our context. One of them is that supress the information of the superficie of the country which is not relevant in this case and which can be a visual biais that lead the user to accord more importance to largest countries. Furthermore, by simply represent each country by a squarre allow us to developp small multiple visualization (OD maps). You can notice that we add a toogle button that allow the user to change with an animation the grid map to the classic map with mercator projection. This permit for the user to easily understand what this grid map represent and which squarre reppresent each country. 
+
+%on pourrait mettre 2 images : une de notre carte sous forme chloroplete et une de notre carte sous forme gridmap (mais sans les OD maps)
+%keywords : #distortion #chloropleth 
+
+\subsection{OD maps}
 # Formes simples (carré), donc visuellement plus facile à appréhender que si on avait des formes plus différentes (carte classique)
 # De plus, permet d'intégrer la map dans chaque carré, ce qui ne serait pas possible avec une carte normale. OD map (grid map dans une grid map) permet d'avoir des motifs dans chaque pays, et donc facilite la comparaison entre 2 pays. Faisable car sur l'Europe, une trentaine de pays, car si sur le monde entier trop d'informations. 
 # Le seul inconvénient, c'est que le fait que ce soit l'Europe saute pas aux yeux, c'est pour ça qu'on a conservé la carte classique de base, et qu'on a ajouté un tooltip  
