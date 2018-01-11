@@ -68,8 +68,11 @@ The grid map is an unconventionnal choice to represent a geographic area but pre
 # De plus, permet d'intégrer la map dans chaque carré, ce qui ne serait pas possible avec une carte normale. OD map (grid map dans une grid map) permet d'avoir des motifs dans chaque pays, et donc facilite la comparaison entre 2 pays. Faisable car sur l'Europe, une trentaine de pays, car si sur le monde entier trop d'informations. 
 # Le seul inconvénient, c'est que le fait que ce soit l'Europe saute pas aux yeux, c'est pour ça qu'on a conservé la carte classique de base, et qu'on a ajouté un tooltip  
 # Choix d'intensité de couleurs pour visualiser l'intensité du traffic, car c'est simple à comprendre. Pays par pays (avec le max du pays), car sinon on risquait d'avoir une concentration sur les plus gros consommateur/producteurs (France/Allemagne/Angleterre)
-# Pour naviguer, choix de checkbox car c'est le plus facile d'utilisation pour l'utilisateur
-# Même justification pour la scrollbar des années 
+
+\subsection{Navigation}
+On the left, we added a panel for the options of the value to show. The first element is the toogle button we have mentionned below and which seems to us the first to use to  understand the grid map representation. The second element is a slide bar to control the year concerned. As one of main goal of our vizualisation was the evolution of exchanges accross the time it appears relevant to put in in the top of clickable options. Because show both export and import in the same was a nonsens we put a checkbox to allow the user to select the export OR the import. Then we propose a set a checkboxes to afford to the user the choice of details in the categories of products. As the catagories correspond to an official nomenclature the name of the categories can be long to be explisives so we decide to just write the code number of each category. Never the less, the user can have the details for each category by passing the mouse on the code number.
+
+%mettre une figure du panel d'option
 
 \begin{figure}[H]
 \includegraphics[scale=0.35]{Capture_ecran_2017-11-29_171310.jpg}
