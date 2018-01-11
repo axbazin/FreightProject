@@ -73,8 +73,8 @@ function mapDrawing(){
 	var tooltip = d3.select('body').append('div')
             .attr('class', 'tooltip');
 
-	var colours = d3.scaleLinear()
-		.range(['#ffd59b','#8b0000'])
+	var colours = d3.scaleQuantile()
+		// .range(['#ffd59b','#8b0000'])
 
 
 	var g2r = new geo2rect.draw();
@@ -107,7 +107,7 @@ function mapDrawing(){
 			var currData = data[currentDir];
 			for(var i in currData[currentYear]){
 				d3.select(".id-"+ i)
-					.style("fill","grey");
+					.style("fill","#f0f0f0");
 			}
 		});	
 
@@ -157,7 +157,11 @@ function HandleMouseOut(){
 */
 
 function updateViz(currentYear, currentGood, data, colours, currentDir){
-	//color la map avec les données pour l'année currentYear
+		if(currentDir == "export"){
+				colours.range(["#ffffb2","#fecc5c","#fd8d3c","#f03b20","#bd0026"]);
+			} else {
+				colours.range(["#ffffcc", "#c2e699", "#78c679", "#31a354", "#006837"]);
+			}
 		
 		currData = data[currentDir];
 		
@@ -176,13 +180,13 @@ function updateViz(currentYear, currentGood, data, colours, currentDir){
 				
 				if(Object.keys(currData[currentYear])[i] == srec){
 					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
-						.style("fill","blue");
+						.style("fill","#999999");
 				}else{
 					
 					d3.select("#" + Object.keys(currData[currentYear])[i] +"-" + srec)
 						.style("fill", function(){
 							if(maxGood == 0){
-								return "Black";
+								return "#bdbdbd";
 							}
 							if(Object.values(currData[currentYear])[i][currentGood][srec]){
 								return colours(Object.values(currData[currentYear])[i][currentGood][srec]);
